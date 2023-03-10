@@ -1,13 +1,13 @@
 public class Cell {
     private final Position position;
     private boolean isEmpty;
-    private String piece;
+    private Object piece;
 
     public Cell(Position position) {
         this.position = position;
     }
 
-    public void setPiece(String piece) {
+    public void setPiece(Object piece) {
         this.piece = piece;
     }
 
@@ -20,6 +20,6 @@ public class Cell {
     }
 
     public String getPiece() {
-        return this.piece;
+        return this.piece.toString();
     }
 }
