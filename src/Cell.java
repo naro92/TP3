@@ -1,14 +1,16 @@
 public class Cell {
     private final Position position;
     private boolean isEmpty;
-    private Object piece;
+    private String piece;
+    private int color;
 
     public Cell(Position position) {
         this.position = position;
     }
 
-    public void setPiece(Object piece) {
+    public void setPiece(String piece, int color) {
         this.piece = piece;
+        this.color = color;
     }
 
     public boolean isEmpty() {
@@ -20,6 +22,9 @@ public class Cell {
     }
 
     public String getPiece() {
-        return this.piece.toString();
+        return this.piece;
     }
+
+    public int getColor() {return this.color;}
+
 }

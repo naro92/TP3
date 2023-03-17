@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.Math.abs;
 
 public class Chess {
     private final char[] columns = new char[]{'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-    private final char[] pieces = new char[]{'K', 'Q', 'R', 'B', 'N'};
+    private final char[] pieces = new char[]{'K', 'Q', 'R', 'B', 'N', 'P'};
     private Cell[][] board;
     private Player[] players;
     private Player currentPlayer;
@@ -41,20 +39,20 @@ public class Chess {
                 this.board[i][j] = new Cell(new Position(this.columns[j], i));
                 if (i == 0 || i == 7) {
                     if (j == 0 || j == 7) {
-                        this.board[i][j].setPiece(new Rook(i/7, new Position(this.columns[j], i)));
+                        this.board[i][j].setPiece("R", i/7);
                     } else if (j == 1 || j == 6) {
-                        this.board[i][j].setPiece(new Knight(i/7, new Position(this.columns[j], i)));
+                        this.board[i][j].setPiece("N", i/7);
                     } else if (j == 2 || j == 5) {
-                        this.board[i][j].setPiece(new Bishop(i/7, new Position(this.columns[j], i)));
+                        this.board[i][j].setPiece("B", i/7);
                     } else if (j == 3) {
-                        this.board[i][j].setPiece(new Queen(i/7, new Position(this.columns[j], i)));
+                        this.board[i][j].setPiece("Q", i/7);
                     } else {
-                        this.board[i][j].setPiece(new King(i/7, new Position(this.columns[j], i)));
+                        this.board[i][j].setPiece("K", i/7);
                     }
                 } else if (i == 1) {
-                    this.board[i][j].setPiece(new Pawn(0, new Position(this.columns[j], i)));
+                    this.board[i][j].setPiece("P", 0);
                 } else if (i == 6) {
-                    this.board[i][j].setPiece(new Pawn(1, new Position(this.columns[j], i)));
+                    this.board[i][j].setPiece("P", 1);
                 }
             }
         }
@@ -124,6 +122,16 @@ public class Chess {
 
                                         else if (piece == 'N') {
                                             if (abs(columnsAsString.indexOf(column) - columnsAsString.indexOf(pieceColumn)) + abs(i - pieceRow) == 3) {
+                                                result = true;
+                                            } else {
+                                                System.out.println("Ce coup n'est pas valide.");
+                                            }
+                                        }
+
+                                        else if (piece == 'P') {
+                                            if (i - pieceRow == 1 || ( (pieceRow == 1 || pieceRow == 6) && i - pieceRow == 2) ) {
+                                                result = true;
+                                            } else if (this.board[i][column].getColor() == otherPlayerColor && i - pieceRow == 1  && abs(columnsAsString.indexOf(column) - columnsAsString.indexOf(pieceColumn)) == 1) {
                                                 result = true;
                                             } else {
                                                 System.out.println("Ce coup n'est pas valide.");
